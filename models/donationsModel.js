@@ -13,6 +13,10 @@ const donationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  programId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Program",
+  },
   donationDate: {
     type: Date,
     default: Date.now,

@@ -12,10 +12,9 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-// Register User
-router.post("/register", registerUser);
 
-// Login User
+// Auth User
+router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 module.exports = router;
