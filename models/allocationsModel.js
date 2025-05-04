@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const allocatedFundsSchema = new mongoose.Schema({
+const allocationSchema = new mongoose.Schema({
   allocationDate: {
     type: Date,
     default: Date.now,
@@ -19,5 +19,4 @@ const allocatedFundsSchema = new mongoose.Schema({
   },
 });
 
-const Allocated = mongoose.model("Allocated", allocatedFundsSchema);
-module.exports = Allocated;
+module.exports = mongoose.model("Allocated", allocationSchema);

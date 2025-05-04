@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/usersModel");
-const { registerUser, loginUser } = require("../controllers/usersController");
+const {
+  registerUser,
+  loginUser,
+  getUserProfile,
+  getAllUser,
+} = require("../controllers/usersController");
 
 // Get All User
 router.get("/", async (req, res) => {
@@ -16,5 +21,9 @@ router.get("/", async (req, res) => {
 // Auth User
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+
+//Profile
+router.get("/profile", getAllUser);
+router.get("/profile/:userId", getUserProfile);
 
 module.exports = router;

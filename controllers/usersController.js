@@ -72,4 +72,46 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getAllUser = async (req, res) => {
+  try {
+    const users = await usersModel.find();
+    const usersData = Promise.all(
+      users.map(async (user) => {
+        return {
+          user: {
+            email: user.email,
+            name: user.name,
+          },
+          userId: user._id,
+        };
+      })
+    );
+    res.status(200).json(await usersData);
+  } catch (error) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const userData = await User.findById(userId);
+    if (userData == null) {
+      return res.status(404).json({ message: "cannot find user" });
+    }
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// const editUserProfile = async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     const { name, email } = req.body;
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+module.exports = { registerUser, loginUser, getAllUser, getUserProfile };

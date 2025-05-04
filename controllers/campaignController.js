@@ -1,6 +1,6 @@
-const Program = require("../models/donationProgramModels");
+const Program = require("../models/campaignsModel");
 const Admin = require("../models/adminsModel");
-const donationProgramModels = require("../models/donationProgramModels");
+const donationProgramModels = require("../models/campaignsModel");
 
 const makeProgram = async (req, res) => {
   try {

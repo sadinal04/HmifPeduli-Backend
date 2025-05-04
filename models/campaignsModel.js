@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const programSchema = new mongoose.Schema({
+const campaignSchema = new mongoose.Schema({
   programName: {
     type: String,
     required: true,
@@ -44,4 +44,4 @@ const programSchema = new mongoose.Schema({
   // },
 });
 
-module.exports = mongoose.model("Program", programSchema);
+module.exports = mongoose.model("Program", campaignSchema);
