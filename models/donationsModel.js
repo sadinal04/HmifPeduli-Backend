@@ -23,12 +23,13 @@ const donationSchema = new mongoose.Schema({
   },
   donationStatus: {
     type: String,
-    enum: ["Pending", "Succesfull", "Abort"],
+    enum: ["Pending", "Successful", "Abort"],
     default: "Pending",
   },
   paymentMethod: {
     type: String,
-    enum: ["BCA", "BSI"],
+    enum: ["BCA", "BSI", "Mandiri", "Dana", "Ovo", "Gopay"],
+    required: true,
   },
 });
 

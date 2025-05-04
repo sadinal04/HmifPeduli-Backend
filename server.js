@@ -22,6 +22,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const usersRouter = require("./routes/usersRoute");
+const programRouter = require("./routes/programRoute");
+
 app.use("/users", usersRouter);
+app.use("/program", programRouter);
 
 app.listen(PORT, () => console.log(`Server Started in port: ${PORT}`));

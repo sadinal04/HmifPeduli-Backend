@@ -14,12 +14,12 @@ const programSchema = new mongoose.Schema({
   },
   fundCollected: {
     type: Number,
-    required: true,
+    default: 0,
   },
   programStatus: {
     type: String,
-    enum: ["On Progress", "Completed", "Abort"],
-    default: "On Progress",
+    enum: ["Active", "Completed", "Abort"],
+    default: "Active",
   },
   startDate: {
     type: Date,
@@ -29,8 +29,19 @@ const programSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  picture: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: ["Kesehatan", "Edukasi", "Kemanusiaan"],
+    required: true,
+  },
+  // adminId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Admin",
+  // },
 });
 
-const Program = mongoose.model("Program", programSchema);
-
-module.exports = Program;
+module.exports = mongoose.model("Program", programSchema);

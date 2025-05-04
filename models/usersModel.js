@@ -19,13 +19,12 @@ const userSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
-  // historiDonasi: [
-  //   {
-  //     tanggal: Date,
-  //     jumlah: Number,
-  //     // program: { type:mongoose}
-  //   },
-  // ],
+  historiDonasi: [
+    {
+      tanggal: { type: Date, default: null },
+      jumlahDonasi: { type: Number, default: 0 },
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);
