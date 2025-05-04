@@ -13,7 +13,7 @@ const allocationSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  programId: {
+  campaignId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },

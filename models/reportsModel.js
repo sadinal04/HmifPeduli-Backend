@@ -18,7 +18,7 @@ const reportSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  programId: {
+  campaignId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },

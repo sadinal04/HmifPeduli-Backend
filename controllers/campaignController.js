@@ -67,11 +67,4 @@ export const getAllCampaign = async (req, res) => {
   }
 };
 
-// const getProgramDetail = async(req, res)=> {
-//     try {
-//         const {id} = req.params
-
-//     } catch (err){
-
-//     }
-// };
+// export const getCampaignDetail = async(req, res)

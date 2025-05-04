@@ -4,6 +4,7 @@ import {
   loginUser,
   getAllUser,
   getUserProfile,
+  editProfile,
 } from "../controllers/usersController.js";
 
 const userRouter = express.Router();
@@ -14,5 +15,6 @@ userRouter.post("/login", loginUser);
 //Profile
 userRouter.get("/", getAllUser);
 userRouter.get("/:userId", getUserProfile);
+userRouter.put("/profile/:userId", editProfile);
 
 export default userRouter;

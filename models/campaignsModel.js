@@ -35,8 +35,8 @@ const campaignSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["Kesehatan", "Edukasi", "Kemanusiaan"],
-    required: true,
+    enum: ["Kesehatan", "Edukasi", "Kemanusiaan", "Lainnya"],
+    default: "Lainnya",
   },
   // adminId: {
   //   type: mongoose.Schema.Types.ObjectId,
