@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const campaignSchema = new mongoose.Schema({
-  programName: {
+  campaignName: {
     type: String,
     required: true,
   },
@@ -16,7 +16,7 @@ const campaignSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  programStatus: {
+  campaignStatus: {
     type: String,
     enum: ["Active", "Completed", "Abort"],
     default: "Active",
@@ -44,4 +44,4 @@ const campaignSchema = new mongoose.Schema({
   // },
 });
 
-module.exports = mongoose.model("Program", campaignSchema);
+module.exports = mongoose.model("Campaign", campaignSchema);

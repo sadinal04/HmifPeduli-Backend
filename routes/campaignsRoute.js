@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Program = require("../models/campaignsModel");
-const { makeProgram } = require("../controllers/campaignController");
+const {
+  makeCampaign,
+  getAllCampaign,
+} = require("../controllers/campaignController");
 
-router.post("/makeProgram", makeProgram);
+router.get("/", getAllCampaign);
+router.post("/makeCampaign", makeCampaign);
 
 module.exports = router;

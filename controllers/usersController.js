@@ -64,7 +64,12 @@ const loginUser = async (req, res) => {
       res.status(200).json({
         message: "login Successful",
         token: token,
-        user: { id: user._id, name: user.name, email: user.email },
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          token: user.token,
+        },
       });
     }
   } catch (error) {
@@ -105,13 +110,13 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-// const editUserProfile = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const { name, email } = req.body;
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+const editUserProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { name, email } = req.body;
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 module.exports = { registerUser, loginUser, getAllUser, getUserProfile };

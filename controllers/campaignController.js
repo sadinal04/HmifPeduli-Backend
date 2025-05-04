@@ -1,8 +1,8 @@
 const Program = require("../models/campaignsModel");
 const Admin = require("../models/adminsModel");
-const donationProgramModels = require("../models/campaignsModel");
+const campaignsModel = require("../models/campaignsModel");
 
-const makeProgram = async (req, res) => {
+const makeCampaign = async (req, res) => {
   try {
     if (
       !req.body ||
@@ -24,7 +24,7 @@ const makeProgram = async (req, res) => {
         picture,
         category,
       } = req.body;
-      const newProgram = new donationProgramModels({
+      const newProgram = new campaignsModel({
         programName,
         description,
         fundTarget,
@@ -49,6 +49,27 @@ const makeProgram = async (req, res) => {
   }
 };
 
+const getAllCampaign = async (req, res) => {
+  try {
+    const campaigns = await campaignsModel.find();
+    const campaignData = Promise.all(
+      campaigns.map(async (campaign) => {
+        return {
+          campaign: {
+            name: campaign.campaignName,
+            target: campaign.fundTarget,
+            category: campaign.category,
+          },
+          campaignId: campaign._id,
+        };
+      })
+    );
+    res.status(200).json(await campaignData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // const getProgramDetail = async(req, res)=> {
 //     try {
 //         const {id} = req.params
@@ -58,4 +79,4 @@ const makeProgram = async (req, res) => {
 //     }
 // };
 
-module.exports = { makeProgram };
+module.exports = { makeCampaign, getAllCampaign };
