@@ -6,7 +6,9 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "All field is required." });
+      return res
+        .status(400)
+        .json({ message: "Please fill all required fields" });
     }
 
     // const { name, email, password } = req.body;
@@ -68,7 +70,7 @@ export const loginUser = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -88,7 +90,7 @@ export const getAllUser = async (req, res) => {
     );
     res.status(200).json(await usersData);
   } catch (error) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

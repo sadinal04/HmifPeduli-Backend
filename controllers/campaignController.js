@@ -2,26 +2,25 @@ import campaignsModel from "../models/campaignsModel.js";
 
 export const makeCampaign = async (req, res) => {
   try {
+    const {
+      programName,
+      description,
+      fundTarget,
+      startDate,
+      endDate,
+      picture,
+      category,
+    } = req.body;
     if (
-      !req.body ||
-      !req.body.programName ||
-      !req.body.fundTarget ||
-      !req.body.startDate ||
-      !req.body.endDate ||
-      !req.body.picture ||
-      !req.body.category
+      !programName ||
+      !fundTarget ||
+      !startDate ||
+      !endDate ||
+      !picture ||
+      !category
     ) {
       res.status(400).json({ message: "Please fill all required fields" });
     } else {
-      const {
-        programName,
-        description,
-        fundTarget,
-        startDate,
-        endDate,
-        picture,
-        category,
-      } = req.body;
       const newCampaign = new campaignsModel({
         programName,
         description,
