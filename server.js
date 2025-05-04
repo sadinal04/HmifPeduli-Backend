@@ -1,10 +1,14 @@
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import userRouter from "./routes/usersRoute.js";
+import campaignRouter from "./routes/campaignsRoute.js";
 
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+dotenv.config();
+
 const app = express();
-const mongoose = require("mongoose");
 const PORT = 3000;
 
 //connect to mongodb
@@ -21,10 +25,7 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-const usersRouter = require("./routes/usersRoute");
-const campaignRouter = require("./routes/campaignsRoute");
-
-app.use("/users", usersRouter);
+app.use("/users", userRouter);
 app.use("/campaigns", campaignRouter);
 
 app.listen(PORT, () => console.log(`Server Started in port: ${PORT}`));

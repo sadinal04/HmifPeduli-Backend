@@ -1,8 +1,9 @@
-const Donasi = require("../models/donationsModel");
+import donationsModel from "../models/donationsModel.js";
 
-const getRecentDonasi = async (req, res) => {
+export const getRecentDonasi = async (req, res) => {
   try {
-    const recent = await Donasi.find({ status: "Successful" })
+    const recent = await donationsModel
+      .find({ status: "Successful" })
       .sort({ donationDate: -1 })
       .limit(4)
       .populate("donaturId", "nama");
@@ -11,5 +12,3 @@ const getRecentDonasi = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-module.exports({ getRecentDonasi });

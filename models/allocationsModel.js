@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const allocationSchema = new mongoose.Schema({
   allocationDate: {
@@ -19,4 +19,4 @@ const allocationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Allocated", allocationSchema);
+export default mongoose.model("Allocated", allocationSchema);

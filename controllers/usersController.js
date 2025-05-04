@@ -1,15 +1,15 @@
-const usersModel = require("../models/usersModel");
-const User = require("../models/usersModel");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import usersModel from "../models/usersModel.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
-    if (!req.body || !req.body.name || !req.body.email || !req.body.password) {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All field is required." });
     }
 
-    const { name, email, password } = req.body;
+    // const { name, email, password } = req.body;
     const isAlreadyRegistered = await usersModel.findOne({ email });
     if (isAlreadyRegistered) {
       return res
@@ -39,13 +39,13 @@ const registerUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
       res.status(400).json({ message: "Please fill all required fields" });
     } else {
-      const user = await User.findOne({ email });
+      const user = await usersModel.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: "User not found" });
       }
@@ -64,12 +64,7 @@ const loginUser = async (req, res) => {
       res.status(200).json({
         message: "login Successful",
         token: token,
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          token: user.token,
-        },
+        user: { id: user._id, name: user.name, email: user.email },
       });
     }
   } catch (error) {
@@ -77,7 +72,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const getAllUser = async (req, res) => {
+export const getAllUser = async (req, res) => {
   try {
     const users = await usersModel.find();
     const usersData = Promise.all(
@@ -97,10 +92,10 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const userData = await User.findById(userId);
+    const userData = await usersModel.findById(userId);
     if (userData == null) {
       return res.status(404).json({ message: "cannot find user" });
     }
@@ -110,13 +105,11 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-const editUserProfile = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const { name, email } = req.body;
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-module.exports = { registerUser, loginUser, getAllUser, getUserProfile };
+// const editUserProfile = async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     const { name, email } = req.body;
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };

@@ -1,12 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const Program = require("../models/campaignsModel");
-const {
+import express from "express";
+import {
   makeCampaign,
   getAllCampaign,
-} = require("../controllers/campaignController");
+} from "../controllers/campaignController.js";
 
-router.get("/", getAllCampaign);
-router.post("/makeCampaign", makeCampaign);
+const campaignRouter = express.Router();
 
-module.exports = router;
+campaignRouter.get("/", getAllCampaign);
+campaignRouter.post("/makeCampaign", makeCampaign);
+
+export default campaignRouter;

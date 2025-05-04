@@ -1,8 +1,6 @@
-const Program = require("../models/campaignsModel");
-const Admin = require("../models/adminsModel");
-const campaignsModel = require("../models/campaignsModel");
+import campaignsModel from "../models/campaignsModel.js";
 
-const makeCampaign = async (req, res) => {
+export const makeCampaign = async (req, res) => {
   try {
     if (
       !req.body ||
@@ -24,7 +22,7 @@ const makeCampaign = async (req, res) => {
         picture,
         category,
       } = req.body;
-      const newProgram = new campaignsModel({
+      const newCampaign = new campaignsModel({
         programName,
         description,
         fundTarget,
@@ -34,13 +32,13 @@ const makeCampaign = async (req, res) => {
         category,
       });
 
-      const savedProgram = await newProgram.save();
+      const savedCampaign = await newCampaign.save();
       res.status(201).json({
         message: "New Program Created",
         user: {
-          id: savedProgram._id,
-          programName: savedProgram.programName,
-          programStatus: savedProgram.programStatus,
+          id: savedCampaign._id,
+          programName: savedCampaign.programName,
+          programStatus: savedCampaign.programStatus,
         },
       });
     }
@@ -49,7 +47,7 @@ const makeCampaign = async (req, res) => {
   }
 };
 
-const getAllCampaign = async (req, res) => {
+export const getAllCampaign = async (req, res) => {
   try {
     const campaigns = await campaignsModel.find();
     const campaignData = Promise.all(
@@ -78,5 +76,3 @@ const getAllCampaign = async (req, res) => {
 
 //     }
 // };
-
-module.exports = { makeCampaign, getAllCampaign };
