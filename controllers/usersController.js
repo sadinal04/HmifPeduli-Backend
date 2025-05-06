@@ -2,6 +2,26 @@ import usersModel from "../models/usersModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const generateUserToken = (userId) => {
+  try {
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is not defined in environment variables");
+      return null;
+    }
+
+    const token = jwt.sign(
+      { id: userId, type: "user" },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    return token;
+  } catch (error) {
+    console.error("Error generating token:", error);
+    return null;
+  }
+};
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -19,7 +39,7 @@ export const registerUser = async (req, res) => {
         .json({ message: "User with this email is already registered" });
     } else {
       const salt = await bcrypt.genSalt(10);
-      hashedPassword = await bcrypt.hash(password, salt);
+      const hashedPassword = await bcrypt.hash(password, salt);
       const newUser = new usersModel({
         name,
         email,
@@ -27,8 +47,10 @@ export const registerUser = async (req, res) => {
       });
 
       const savedUser = await newUser.save();
+      const token = generateUserToken(newUser._id);
       res.status(201).json({
         message: "Succesfull Register",
+        token: token,
         user: {
           id: savedUser._id,
           name: savedUser.name,
@@ -57,11 +79,7 @@ export const loginUser = async (req, res) => {
         return res.status(400).json({ message: "Password incorrect" });
       }
 
-      const token = jwt.sign(
-        { userId: user._id, email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
+      const token = generateUserToken(usersModel._id);
 
       res.status(200).json({
         message: "login Successful",

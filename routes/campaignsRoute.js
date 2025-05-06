@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  makeCampaign,
+  createCampaign,
   getAllCampaign,
 } from "../controllers/campaignController.js";
 
 const campaignRouter = express.Router();
 
 campaignRouter.get("/", getAllCampaign);
-campaignRouter.post("/makeCampaign", makeCampaign);
+campaignRouter.post("/createCampaign", createCampaign);
 
 export default campaignRouter;

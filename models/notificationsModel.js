@@ -10,7 +10,7 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: { type: String, enum: ["unread", "read"], default: "unread" },
+  isRead: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });
 

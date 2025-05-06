@@ -1,6 +1,6 @@
 import campaignsModel from "../models/campaignsModel.js";
 
-export const makeCampaign = async (req, res) => {
+export const createCampaign = async (req, res) => {
   try {
     const {
       programName,
