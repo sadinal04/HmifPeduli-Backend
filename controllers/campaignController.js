@@ -73,21 +73,6 @@ export const getCampaignDetail = async (req, res) => {
   }
 };
 
-// export const editCampaign = async (req, res) => {
-//   try {
-//     const campaignId = req.params.campaignId;
-//     const { campaignName, fundTarget, }
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
-
-// export const deleteCampaign = async (req, res) => {
-//   try {
-
-//   }
-// }
-
 export const editCampaign = async (req, res) => {
   try {
     const campaignId = req.params.campaignId;
@@ -111,25 +96,35 @@ export const editCampaign = async (req, res) => {
         campaign[field] = req.body[field];
       }
     });
-    // const {
-    //   campaignName,
-    //   description,
-    //   fundTarget,
-    //   campaignStatus,
-    //   startDate,
-    //   endDate,
-    //   picture,
-    //   category,
-    // } = req.body;
 
     await campaign.save();
-    res
-      .status(200)
-      .json({
-        message: "Campaign updated successfully",
-        updatedCampaign: campaign,
-      });
+    res.status(200).json({
+      message: "Campaign updated successfully",
+      updatedCampaign: campaign,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteCampaign = async (req, res) => {
+  try {
+    const campaignId = req.params.campaignId;
+    if (!campaignId) {
+      return res
+        .status(400)
+        .json({ message: "Campaign id is required, but not provided" });
+    }
+
+    const deleteCampaign = await campaignsModel.findByIdAndDelete(campaignId);
+    if (!deleteCampaign) {
+      res.status(400).json({ message: "Campaign not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "campaign succesfully deleted", data: deleteCampaign });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
