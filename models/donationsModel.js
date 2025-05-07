@@ -15,7 +15,7 @@ const donationSchema = new mongoose.Schema({
   },
   campaignId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Program",
+    ref: "Campaign",
   },
   donationDate: {
     type: Date,

@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import userRouter from "./routes/usersRoute.js";
 import campaignRouter from "./routes/campaignsRoute.js";
+import adminRouter from "./routes/adminsRoute.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/users", userRouter);
+app.use("/admins", adminRouter);
 app.use("/campaigns", campaignRouter);
 
 app.listen(PORT, () => console.log(`Server Started in port: ${PORT}`));

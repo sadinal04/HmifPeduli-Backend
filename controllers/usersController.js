@@ -31,7 +31,6 @@ export const registerUser = async (req, res) => {
         .json({ message: "Please fill all required fields" });
     }
 
-    // const { name, email, password } = req.body;
     const isAlreadyRegistered = await usersModel.findOne({ email });
     if (isAlreadyRegistered) {
       return res
