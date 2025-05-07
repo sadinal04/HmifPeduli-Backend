@@ -11,14 +11,7 @@ export const createCampaign = async (req, res) => {
       picture,
       category,
     } = req.body;
-    if (
-      !campaignName ||
-      !fundTarget ||
-      !startDate ||
-      !endDate ||
-      !picture ||
-      !category
-    ) {
+    if (!campaignName || !fundTarget || !startDate || !endDate || !picture) {
       res.status(400).json({ message: "Please fill all required fields" });
     } else {
       const newCampaign = new campaignsModel({
@@ -94,3 +87,49 @@ export const getCampaignDetail = async (req, res) => {
 
 //   }
 // }
+
+export const editCampaign = async (req, res) => {
+  try {
+    const campaignId = req.params.campaignId;
+    const campaign = await campaignsModel.findById(campaignId);
+    if (!campaign) {
+      res.status(400).json({ message: "Campaign not found" });
+    }
+    const editableFields = [
+      "campaignName",
+      "description",
+      "fundTarget",
+      "campaignStatus",
+      "startDate",
+      "endDate",
+      "picture",
+      "category",
+    ];
+
+    editableFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        campaign[field] = req.body[field];
+      }
+    });
+    // const {
+    //   campaignName,
+    //   description,
+    //   fundTarget,
+    //   campaignStatus,
+    //   startDate,
+    //   endDate,
+    //   picture,
+    //   category,
+    // } = req.body;
+
+    await campaign.save();
+    res
+      .status(200)
+      .json({
+        message: "Campaign updated successfully",
+        updatedCampaign: campaign,
+      });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

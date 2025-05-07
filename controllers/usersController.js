@@ -132,12 +132,19 @@ export const editProfile = async (req, res) => {
     if (!user) {
       res.status(400).json({ message: "User not found" });
     }
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (phoneNumber) user.phoneNumber = phoneNumber;
+    // if (name) user.name = name;
+    // if (email) user.email = email;
+    // if (phoneNumber) user.phoneNumber = phoneNumber;
 
-    const updatedUser = await user.save();
-    res.status(200).json({ message: "Profile updated successfully." });
+    user.set("name", name);
+    user.set("email", email);
+    user.set("phoneNumber", phoneNumber);
+
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully.", data: user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
