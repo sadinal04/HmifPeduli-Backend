@@ -39,10 +39,10 @@ const campaignSchema = new mongoose.Schema({
     enum: ["Kesehatan", "Edukasi", "Kemanusiaan", "Lainnya"],
     default: "Lainnya",
   },
-  adminId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Admin",
-  },
+  // adminId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Admin",
+  // },
 });
 
 export default mongoose.model("Campaign", campaignSchema);

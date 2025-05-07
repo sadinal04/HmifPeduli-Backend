@@ -3,7 +3,7 @@ import campaignsModel from "../models/campaignsModel.js";
 export const createCampaign = async (req, res) => {
   try {
     const {
-      programName,
+      campaignName,
       description,
       fundTarget,
       startDate,
@@ -12,7 +12,7 @@ export const createCampaign = async (req, res) => {
       category,
     } = req.body;
     if (
-      !programName ||
+      !campaignName ||
       !fundTarget ||
       !startDate ||
       !endDate ||
@@ -22,7 +22,7 @@ export const createCampaign = async (req, res) => {
       res.status(400).json({ message: "Please fill all required fields" });
     } else {
       const newCampaign = new campaignsModel({
-        programName,
+        campaignName,
         description,
         fundTarget,
         startDate,
@@ -33,11 +33,11 @@ export const createCampaign = async (req, res) => {
 
       const savedCampaign = await newCampaign.save();
       res.status(201).json({
-        message: "New Program Created",
+        message: "New Campaign Created",
         user: {
           id: savedCampaign._id,
-          programName: savedCampaign.programName,
-          programStatus: savedCampaign.programStatus,
+          campaignName: savedCampaign.campaignName,
+          campaignStatus: savedCampaign.campaignStatus,
         },
       });
     }
@@ -67,4 +67,30 @@ export const getAllCampaign = async (req, res) => {
   }
 };
 
-// export const getCampaignDetail = async(req, res)
+export const getCampaignDetail = async (req, res) => {
+  try {
+    const campaignId = req.params.campaignId;
+    const campaignData = await campaignsModel.findById(campaignId);
+    if (campaignData == null) {
+      return res.status(404).json({ message: "cannot find campaign" });
+    }
+    res.status(200).json(campaignData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// export const editCampaign = async (req, res) => {
+//   try {
+//     const campaignId = req.params.campaignId;
+//     const { campaignName, fundTarget, }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
+// export const deleteCampaign = async (req, res) => {
+//   try {
+
+//   }
+// }
