@@ -54,9 +54,11 @@ export const createReport = async (req, res) => {
     // );
 
     // ✅ Tambahkan: ubah status campaign jika saldo habis
-    if (balance === 0) {
+    if (Math.abs(balance) <= 1) { // gunakan toleransi untuk jaga-jaga error desimal
       campaign.campaignStatus = "Completed";
+      report.reportStatus = "Completed";
       await campaign.save();
+      await report.save();
     }
 
     res.status(201).json(report);
